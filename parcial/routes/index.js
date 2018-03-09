@@ -13,25 +13,16 @@ const dbName = 'mydb';
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
 
-router.get("/pre", (req, res)=>{
-  MongoClient.connect(url, function(err, client) {
-    assert.equal(null, err);
-    console.log("Connected successfully to server");
-    
-})
 
-router.get("/:nombre", (req,res)=>{
+router.get("/stats", (req,res)=>{
   MongoClient.connect(url, function(err, client) {
     assert.equal(null, err);
     console.log("Connected successfully to server");
   
     db = client.db(dbName);
-    const collection = db.collection("pre");
-    collection.find({name: req.params.nombre}).toArray((err,result)=>{
+    const collection = db.collection("parcial");
+    collection.find().toArray((err,result)=>{
       res.json(result);
     });
     client.close();
@@ -39,19 +30,20 @@ router.get("/:nombre", (req,res)=>{
 
 })
 
-router.post("/pre",(req,res)=>{
+router.post("/stats",(req,res)=>{
   MongoClient.connect(url, function(err, client) {
     assert.equal(null, err);
     console.log("Connected successfully to server");
   
     db = client.db(dbName);
-    const collection = db.collection("pre");
+    const collection = db.collection("parcial");
+    var date = new Date();
+    console.log(req.body.name1, req.body.name2);
     collection.insert({
-      name:req.body.name,
-      hobbies:req.body.hobbies,
-      age:req.body.age,
-      sex: req.body.sex,
-      weight: req.body.weight
+      name1:req.body.name1,
+      name2:req.body.name2,
+      ganador: req.body.ganador,
+      date:date
     }).then((result)=>{
       res.json(result);
     }).catch(err=>{
@@ -61,6 +53,7 @@ router.post("/pre",(req,res)=>{
     });
     client.close();
   });
-})
+});
+
 
 module.exports = router;
