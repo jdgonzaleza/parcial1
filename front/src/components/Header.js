@@ -8,7 +8,7 @@ export default class Header extends React.Component {
         <div className="jumbotron">
           <h1>Insta Fight</h1>
           <div>
-            <p>¿Quién es más Popular en Instagram?</p>
+            <p>You gotta fight for your... likes</p>
             <p>Investigalo!</p>
           </div>
         </div>

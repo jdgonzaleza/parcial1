@@ -55,5 +55,24 @@ router.post("/stats",(req,res)=>{
   });
 });
 
+router.get("/random", (req, res)=>{
+   MongoClient.connect(url, function(err, client) {
+    assert.equal(null, err);
+    console.log("Connected successfully to server");
+    db = client.db(dbName);
+    const collection = db.collection("parcial");
+    var n = collection.count();
+    var r = Math.floor(Math.random() * n);
+    collection.fing({}).limit(1).skip(r).then(result=>{
+      res.json(result);
+    }).catch(err=>{
+      res.json({
+        error:err
+      });
+    });
+    client.close();
+  });
+})
+
 
 module.exports = router;

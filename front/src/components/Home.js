@@ -28,7 +28,6 @@ export default class Home extends React.Component {
     console.log("123123")
     fetch("https://www.instagram.com/" + this.state.name1 + "/?__a=1").then(res => res.json()).then(myJson => {
       nodes1 = myJson.user.media.nodes;
-      console.log(nodes1);
       for (let i of nodes1) {
         likes1 += i.likes.count;
       }
@@ -63,7 +62,6 @@ export default class Home extends React.Component {
           });
           console.log(this.state.ganador);
         } else {
-          console.log("que dicen los jijueputas22")
           var user2 = {
             name: this.state.name2,
             img: this.state.img2
@@ -71,9 +69,7 @@ export default class Home extends React.Component {
           this.setState({
             ganador: user2
           });
-          console.log(this.state.ganador);
         }
-        console.log(this.state.name1, this.state.name2);
         fetch("/stats", {
           method: "POST",
           headers:{"Content-Type":"application/json"},
@@ -105,14 +101,14 @@ export default class Home extends React.Component {
     console.log(this.state.name2);
   }
   renderFoto() {
-    console.log(this.state.ganador.name, "hola");
     if (this.state.ganador.name === undefined) {
-      console.log("que mierdas");
     } else if (this.state.ganador) {
       return (
         <Resultado
           ganador={this.state.ganador.name}
-          img={this.state.ganador.img} />
+          img={this.state.ganador.img}
+          name1= {this.state.name1}
+          name2={this.state.name2} />
       );
     }
   }
@@ -129,6 +125,18 @@ export default class Home extends React.Component {
     });
   }
 
+  onRandom(){
+    fetch("/random",{
+      method:"GET"
+    }).then(res=> res.json()).then(pepe=>{
+      this.setState({
+        name1:pepe.name1,
+        name2:pepe.name2
+      });
+      this.onClick;
+    });
+  }
+
 
   render() {
     return (
@@ -142,7 +150,7 @@ export default class Home extends React.Component {
           </div>
           <div className="col-sm-6">
             <div>
-              <h1>The Winner is: </h1>
+              
               <div>
               </div>
               {this.renderFoto()}
@@ -154,6 +162,8 @@ export default class Home extends React.Component {
         <hr />
         <div>
           <button onClick = {this.onStats.bind(this)}>Stats</button>
+          <br/>
+          <button onClick ={this.onRandom.bind(this)}> Random Fight </button>
         </div>
         <hr/>
         <div className="container">
