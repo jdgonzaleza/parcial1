@@ -52,7 +52,6 @@ export default class Home extends React.Component {
 
         });
         if (this.state.likes1 > this.state.likes2) {
-          console.log("que dicen los jijueputas")
           var user1 = {
             name: this.state.name1,
             img: this.state.img1
@@ -126,14 +125,21 @@ export default class Home extends React.Component {
   }
 
   onRandom(){
-    fetch("/random",{
-      method:"GET"
-    }).then(res=> res.json()).then(pepe=>{
+    fetch("/stats", {
+      method: "GET"
+    }).then(res => res.json()).then(myJson => {
       this.setState({
-        name1:pepe.name1,
-        name2:pepe.name2
+        stats: myJson
       });
-      this.onClick;
+      var arr = this.state.stats;
+      var onj = (arr[Math.floor(Math.random()*arr.length)]);
+      this.setState({
+        name1: onj.name1,
+        name2: onj.name2
+      });
+      this.click();
+    }).catch(err => {
+      alert("It was not possible to access the stats.");
     });
   }
 

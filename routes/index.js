@@ -61,14 +61,8 @@ router.get("/random", (req, res)=>{
     console.log("Connected successfully to server");
     db = client.db(dbName);
     const collection = db.collection("parcial");
-    var n = collection.count();
-    var r = Math.floor(Math.random() * n);
-    collection.fing({}).limit(1).skip(r).then(result=>{
+        collection.find().toArray((err,result)=>{
       res.json(result);
-    }).catch(err=>{
-      res.json({
-        error:err
-      });
     });
     client.close();
   });

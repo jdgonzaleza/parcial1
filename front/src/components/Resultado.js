@@ -6,6 +6,8 @@ export  default class Resultado extends React.Component {
     super(props);
   }
   render() {
+    var o1 = this.props.name1;
+    var o2 = this.props.name2;
     return (
       <div>
         <div>
