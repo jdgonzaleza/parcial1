@@ -1,5 +1,7 @@
 # Insta Fight
-The purpose of this project was to create a website that could decide which instagram account has more likes in their pictures. This prototype was made for a University course of web development.
+The purpose of this project was to create a website that could decide which instagram account has more likes. This prototype was made for a university course of web development at La Universida de Los Andes.
+###Creative Component
+Also, as an additional feature, it is possible to generate "fights" randomly with the acounts that where used before. 
 
 ## Getting Started
 To get a copy of these repository install git bash, open it from the command line and use 
