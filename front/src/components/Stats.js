@@ -25,9 +25,9 @@ export default class Stats extends React.Component {
           </div>
         </div>
         {this.props.stats.map(
-          (s)=>{
+          (s,i)=>{
             return(
-              <div className="row intro ">
+              <div key = {i} className="row intro ">
                 <div className="col-sm-3">
                   
                   <input type="text" value={s.name1} disabled />

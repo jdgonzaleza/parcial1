@@ -27,14 +27,15 @@ export default class Home extends React.Component {
     let nodes2;
     console.log("123123")
     fetch("https://www.instagram.com/" + this.state.name1 + "/?__a=1").then(res => res.json()).then(myJson => {
-      nodes1 = myJson.user.media.nodes;
+    nodes1 = myJson.graphql.user.edge_owner_to_timeline_media.edges;
+    console.log(nodes1)
       for (let i of nodes1) {
-        likes1 += i.likes.count;
+        likes1 += i.node.edge_liked_by.count;
       }
 
       this.setState({
         likes1: likes1,
-        img1: myJson.user.profile_pic_url
+        img1: myJson.graphql.user.profile_pic_url
       });
 
       localStorage.setItem("d", this.state.likes1);
@@ -42,13 +43,13 @@ export default class Home extends React.Component {
 
 
       fetch("https://www.instagram.com/" + this.state.name2 + "/?__a=1").then(res => res.json()).then(myJson2 => {
-        nodes2 = myJson2.user.media.nodes;
+        nodes2 = myJson2.graphql.user.edge_owner_to_timeline_media.edges;
         for (let i of nodes2) {
-          likes2 += i.likes.count;
+          likes2 += i.node.edge_liked_by.count;
         }
         this.setState({
           likes2: likes2,
-          img2: myJson2.user.profile_pic_url
+          img2: myJson2.graphql.user.profile_pic_url
 
         });
         if (this.state.likes1 > this.state.likes2) {
